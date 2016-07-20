@@ -1,48 +1,60 @@
 #%RAML 0.8
-title: tokenreader
-version: 1.0.0
-baseUri: http://server/api/{version}
-/token:
+baseUri: https://mocksvc.mulesoft.com/mocks/48ca5ce5-64e2-43e2-a8ee-a6020d926fdc
+title: Verify Age
+version: 1.0
+schemas:
+ - token: |
+        {
+            "type": "object",
+            "$schema": "http://json-schema.org/draft-03/schema",
+            "id": "http://jsonschema.net",
+            "required": true,
+            "properties": {
+                "customerId": {
+                    "type": "string",
+                    "required": false
+                },
+                "tokenid": {
+                    "type": "string",
+                    "required": false
+                },
+                "isTokenValid": {
+                    "type": "boolean",
+                    "required": false
+                },
+                "age": {
+                    "type": "string",
+                    "required": false
+                }
+            }
+        }
+/tokens :
+    post:
+      body:
+        application/json:
+          schema: token
+          example: |
+            {
+              "customerId" : "1001557683"
+            }
+      responses:
+        200:
+          body:
+            application/json:
+              schema: token
+              example: |
+                {
+                  "tokenid":"53b5bc29-c7a0-451f-aaad-243f03ce0116"
+                }
+/tokens/{id}/verify:
   get:
-    queryParameters:
-      user:
-        displayName: User Id
-        type: string
-        description: the user's token
-        required: true
-      duration:
-        displayName: Duration
-        type: string
-        description: a specified duration, not necessary
-        required: false
     responses:
       200:
         body:
-          application/json:
-            schema: token
-            example: |
-               {
-                  "data":true
-                  "success": true,
-                  "status": 200
-               }
-schemas:
- - token: |
-    {
-    "type": "object",
-    "$schema": "http://json-schema.org/draft-03/schema",
-    "id": "http://jsonschema.net",
-    "required": true,
-    "properties": {
-      "songTitle": {
-        "type": "string",
-        "required": true
-      },
-      "albumId": {
-        "type": "string",
-        "required": true,
-        "minLength": 36,
-        "maxLength": 36
-      }
-    }
-    }
+            application/json:
+              schema: token
+              example: |
+                {
+                  "isTokenValid" : true,
+                  "age" : 23
+                }

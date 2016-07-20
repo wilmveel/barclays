@@ -1,7 +1,7 @@
 package com.example;
 
-import com.barclase.api.model.Json178691418;
-import com.barclase.api.resource.TokenResource;
+import com.barclase.api.model.Token;
+import com.barclase.api.resource.TokensResource;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
@@ -9,16 +9,16 @@ import javax.ws.rs.core.StreamingOutput;
 /**
  * Created by willemveelenturf on 20/07/16.
  */
-public class MyTokenResource implements TokenResource {
+public class MyTokenResource implements TokensResource {
 
-    @java.lang.Override
-    public TokenResource.GetTokenResponse getToken(String token, String duration) throws Exception {
 
-        System.out.println("Hit API");
-        Json178691418 t = new Json178691418();
+    @Override
+    public PostTokensResponse postTokens(Token entity) throws Exception {
 
-        TokenResource.GetTokenResponse res = TokenResource.GetTokenResponse.withJsonOK(t);
+        Token t = new Token();
+        t.setCustomerId("123");
 
-        return res;
+        return TokensResource.PostTokensResponse.withJsonOK(t);
+
     }
 }
