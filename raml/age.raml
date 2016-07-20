@@ -5,8 +5,8 @@ baseUri: http://server/api/{version}
 /token:
   get:
     queryParameters:
-      token:
-        displayName: Token
+      user:
+        displayName: User Id
         type: string
         description: the user's token
         required: true
@@ -19,11 +19,28 @@ baseUri: http://server/api/{version}
       200:
         body:
           application/json:
+            schema: |
+              {
+              "type": "object",
+              "$schema": "http://json-schema.org/draft-03/schema",
+              "id": "http://jsonschema.net",
+              "required": true,
+              "properties": {
+                "songTitle": {
+                  "type": "string",
+                  "required": true
+                },
+                "albumId": {
+                  "type": "string",
+                  "required": true,
+                  "minLength": 36,
+                  "maxLength": 36
+                }
+                }
+              }
             example: |
                {
                   "data":true
                   "success": true,
                   "status": 200
                }
-
-      
