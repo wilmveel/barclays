@@ -1,0 +1,29 @@
+#%RAML 0.8
+title: tokenreader
+version: 1.0.0
+baseUri: http://server/api/{version}
+/token:
+  get:
+    queryParameters:
+      token:
+        displayName: Token
+        type: string
+        description: the user's token
+        required: true
+      duration:
+        displayName: Duration
+        type: string
+        description: a specified duration, not necessary
+        required: false
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+               {
+                  "data":true
+                  "success": true,
+                  "status": 200
+               }
+
+      
